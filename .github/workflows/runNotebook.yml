@@ -3,7 +3,7 @@ name: Run Jupyter Notebook
 
 # Esto dice que el código debe ejecutarse todos los días a media noche
 on:
-  workdflow-dispatch:
+  workflow-dispatch:
   schedule:
     - cron: 0 0 * * *
 
