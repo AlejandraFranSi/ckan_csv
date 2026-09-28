@@ -1,12 +1,16 @@
 # This is a basic workflow that is manually triggered
 name: Run Jupyter Notebook
 
-# Esto dice que el código debe ejecutarse todos los días a media noche
+# Establecemos permisos para poder hacer commits
+permissions:
+  contents: write
+
+# Indicamos las ramas asociadas a la acción y el tiempo de ejecución
 on:
-  schedule:
-    - cron: 0 0 * * *
   push:
     branches: ["main"]
+  schedule:
+    - cron: 0 0 * * *
   workflow_dispatch:
 
 jobs:
@@ -16,7 +20,6 @@ jobs:
 
     # Los pasos involucrados en la ejecución del trabajo
     steps:
-      # Runs a single command using the runners shell
       - name: Revisar repo
         uses: actions/checkout@v4
       - name: Establecer version de python
@@ -27,3 +30,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Correr Notebook
         run: jupyter execute generacion_base_semanal.ipynb
+      - name: Hacer commit y push del archivo
+        run: |
+          git config user.name "AlejandraFranSi"
+          git config user.email "fasa297@gmail.com"
+          git add .
+          git commit -m "Actualizar reporte"
+          git push
