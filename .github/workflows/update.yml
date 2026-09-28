@@ -17,11 +17,13 @@ jobs:
     # Los pasos involucrados en la ejecución del trabajo
     steps:
       # Runs a single command using the runners shell
+      - name: Revisar repo
+        uses: actions/checkout@v4
       - name: Establecer version de python
         uses: actions/setup-python@v2
         with:
           python-version: 3.14
       - name: Instalar dependencias
-        run: pip install -r ./requirements.txt
+        run: pip install -r requirements.txt
       - name: Correr Notebook
         run: jupyter execute generacion_base_semanal.ipynb
